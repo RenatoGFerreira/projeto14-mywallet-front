@@ -23,7 +23,7 @@ export default function LoginPage() {
                     <form onSubmit={doLogin}>
                         <StyledInput
                             type="email"
-                            placeholder="email"
+                            placeholder="E-mail"
                             name="email"
                             value={form.email}
                             required
@@ -31,7 +31,7 @@ export default function LoginPage() {
                         />
                         <StyledInput
                             type="password"
-                            placeholder="senha"
+                            placeholder="Senha"
                             name="password"
                             value={form.password}
                             required
@@ -48,3 +48,7 @@ export default function LoginPage() {
     )
 }
 
+
+
+// pra salvar isso depois
+// https://react-hook-form.com/
