@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage/LoginPage"
 import RegisterPage from "./pages/RegisterPage/RegisterPage"
 import Home from "./pages/Home/Home"
 import IncomingPage from "./pages/IncomingPage/IncomingPage"
-import ExpensePage from "./pages/ExpensePage/ExpansePage"
+import ExpensePage from "./pages/ExpensePage/ExpensePage"
 
 
 export default function App() {
