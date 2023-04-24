@@ -1,13 +1,64 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
+import { useNavigate } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { AuthContext } from "../contexts/AuthContext"
+import { findAllTransactions } from "../services/transations"
 
 export default function HomePage() {
+  const {user, setUser} = useContext(AuthContext)
+  const [usuario, setUsuario] = useState({})
+  const [transacoes, setTransacoes] = useState([])
+  const [total, setTotal] = useState(0)
+  const navigate = useNavigate()
+  console.log(user)
+  console.log(usuario)
+
+  useEffect(() => {
+    getTransactions();
+  }, []);
+
+  async function getTransactions(){
+    if(!user){
+      navigate("/")
+    }
+    const res = await findAllTransactions(user);
+    if (res.status === 401) {
+      alert("Faça login novamente.")
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+    setUsuario(res.data.user);
+    setTransacoes(res.data.transactions);
+
+    let total = 0;
+    res.data.transactions.forEach((transaction) => {
+      if (transaction.type === "entrada") {
+        total += Number(transaction.value);
+      } else {
+        total -= Number(transaction.value);
+      }
+    });
+
+    setTotal(total);
+
+  }
+
+  function newEntries(type) {
+    navigate(`nova-transacao/${type}`);
+  }
+
+  function deslogar(){
+    setUser("")
+    navigate("/")
+  }
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
-        <BiExit />
+        <h1>Olá, {usuario.name}</h1>
+        <BiExit onClick={deslogar}/>
       </Header>
 
       <TransactionsContainer>
@@ -31,17 +82,17 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value color={"positivo"}>{total}</Value>
         </article>
       </TransactionsContainer>
 
 
       <ButtonsContainer>
-        <button>
+        <button onClick={() => newEntries("entrada")}> 
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-        <button>
+        <button onClick={() => newEntries("saida")}>
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
