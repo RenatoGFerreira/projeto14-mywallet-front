@@ -23,7 +23,6 @@ export default function SignInPage() {
     signIn(form).then((res) => {
       if (res.data.message) {
         return alert(res.data.message)
-        navigate("/cadastro")
       }
 
       setUser(res.data.token);

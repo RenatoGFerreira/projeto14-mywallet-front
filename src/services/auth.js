@@ -2,8 +2,8 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:5000";
 
-export function signup(body) {
-  const response = axios.post(`${BASE_URL}/sign-up`, body);
+export function cadastro(body) {
+  const response = axios.post(`${BASE_URL}/cadastro`, body);
   return response;
 }
 

@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
+import { cadastro } from "../services/auth"
 
 export default function SignUpPage() {
   const [form, setForm] = useState({})
+  const navigate = useNavigate()
+  // const [pass, setPass] = useState({})
+
+  // function handlePassword({value, name}){
+  //   if(password == passwordConfirm){
+  //     setForm({...form, [password]: value})
+  //   }
+  // }
 
   function handleForm({value, name}){
     setForm({...form, [name]: value})
@@ -12,6 +21,9 @@ export default function SignUpPage() {
 
   function handleSendForm(e){
     e.preventDefault()
+    cadastro(form).then((res) => {
+      navigate("/");
+    });
 
   }
   return (
@@ -31,7 +43,7 @@ export default function SignUpPage() {
         />
         <input 
           placeholder="E-mail" 
-          name="name" 
+          name="email" 
           type="email"
           onChange={(e) =>
             handleForm({
@@ -44,7 +56,6 @@ export default function SignUpPage() {
           placeholder="Senha" 
           name="password"
           type="password" 
-          autocomplete="new-password" 
           onChange={(e) =>
             handleForm({
               name: e.target.name,
@@ -52,18 +63,18 @@ export default function SignUpPage() {
             })
           }
         />
-        <input 
+        {/* <input 
           placeholder="Confirme a senha" 
           name="passwordConfirm"
           type="password" 
           autocomplete="new-password" 
           onChange={(e) =>
-            handleForm({
+            handlePassword({
               name: e.target.name,
               value: e.target.value,
             })
           }
-        />
+        /> */}
         <button onClick={handleSendForm}>Cadastrar</button>
       </form>
 
