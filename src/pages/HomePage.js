@@ -50,7 +50,7 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    getTransactions();
+    getTransactions()
   });
   
   return (
@@ -62,13 +62,13 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          {transacoes.map((transaction, index) => (
+          {transacoes.map((transactionsUser, index) => (
             <ListItemContainer key={index}>
               <div>
-                <span>{transaction.createdAt.substr(0,5)}</span>
-                <strong>{transaction.description}</strong>
+                <span>{transactionsUser.createdAt.substr(0,5)}</span>
+                <strong>{transactionsUser.description}</strong>
               </div>
-              <Value color={transaction.type}>{transaction.value}</Value>
+              <Value color={transactionsUser.type}>{transactionsUser.value}</Value>
             </ListItemContainer>
           ))}
 

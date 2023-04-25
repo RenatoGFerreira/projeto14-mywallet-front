@@ -15,10 +15,7 @@ export default function App() {
             <Route path="/" element={<SignInPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/home" element={<HomePage />} />
-            <Route
-              path="home/nova-transacao/:tipo"
-              element={<TransactionsPage />}
-            />
+            <Route path="home/nova-transacao/:tipo" element={<TransactionsPage />} />
           </Routes>
         </BrowserRouter>
       </PagesContainer>
